@@ -32,6 +32,7 @@
           container: document.getElementById('cy'),
           ready: function () {
           },
+
           style: [
             {// 节点样式
               selector: 'node',
