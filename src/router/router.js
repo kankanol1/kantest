@@ -80,6 +80,11 @@ let router = [
         name: 'cytest2',
         component: (resolve) => require(['../pages/cytoscape/test2'], resolve),
       },
+      {
+        path: '/pages/cytoscape/test3',
+        name: 'cytest3',
+        component: (resolve) => require(['../pages/cytoscape/test3'], resolve),
+      },
     ],
   },
 

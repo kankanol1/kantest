@@ -50,7 +50,7 @@
               <router-link to="/pages/cytoscape/test2">test2</router-link>
             </MenuItem>
             <MenuItem name="2-3" :style="{padding: 0}">
-              <router-link to="/pages/cytoscape/test1">test1</router-link>
+              <router-link to="/pages/cytoscape/test3">test3</router-link>
             </MenuItem>
           </Submenu>
           <Submenu name="3">

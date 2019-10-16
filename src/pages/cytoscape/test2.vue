@@ -93,7 +93,8 @@
             return [{
               content: '<span class="info fa">节点</span>',
               submenu: [
-                {content: '<span class="fa">'+(!item.hasClass('hidechildren')?'隐藏':'展示')+'子节点'+'</span>',
+                {
+                  content: item.hasClass('hidechildren')? ('<span class="fa" style="color:#0ff;">'+'展示子节点'+'</span>') :('<span class="fa" style="color:white">'+'隐藏子节点'+'</span>'),
                   select: ele=>{
                     deleteBox();
                     changeColor(ele);
@@ -109,7 +110,7 @@
                   }
                 },
                 {
-                  content: '<span class="fa">'+(!item.hasClass('hideparents')?'隐藏':'展示')+'父节点</span>',
+                  content: item.hasClass('hideparents')? ('<span class="fa" style="color:#0ff;">'+'展示父节点'+'</span>') :('<span class="fa" style="color:white">'+'隐藏父节点'+'</span>'),
                   select: ele => {
                     deleteBox();changeColor(ele);
                     cy.startBatch();
@@ -123,7 +124,8 @@
                     cy.endBatch();
                   }},
                 {
-                  content: '<span class="fa">'+(!item.hasClass('hideleaf')?'隐藏':'展示')+'叶节点</span>',
+
+                  content: item.hasClass('hideleaf')? ('<span class="fa" style="color:#0ff;">'+'展示叶节点'+'</span>') :('<span class="fa" style="color:white">'+'隐藏叶节点'+'</span>'),
                   select: ele => {
                     deleteBox();changeColor(ele);
                     cy.startBatch();
@@ -138,7 +140,8 @@
                   }},
               ],
             },
-              {content: '<span class="fa">'+(!item.hasClass('height')?'一级':'所有')+'联系人</span>',
+              {
+                content: item.hasClass('height')? ('<span class="fa" style="color:#0ff;">'+'所有联系人'+'</span>') :('<span class="fa" style="color:white">'+'一级联系人'+'</span>'),
                 select: ele=>{
                   deleteBox();changeColor(ele);
                   cy.startBatch();
@@ -156,7 +159,7 @@
                 }
               },
               {
-                content: '<span class="fa">'+(!item.hasClass('hideparents')?'隐藏':'展示')+'父节点</span>',
+                content: item.hasClass('hideparents')? ('<span class="fa" style="color:#0ff;">'+'展示父节点'+'</span>') :('<span class="fa" style="color:white">'+'隐藏父节点'+'</span>'),
                 select: ele => {
                   deleteBox();changeColor(ele);
                   cy.startBatch();
@@ -170,7 +173,7 @@
                   cy.endBatch();
                 }},
               {
-                content: '<span class="fa">'+(!item.hasClass('hideleaf')?'隐藏':'展示')+'叶节点</span>',
+                content: item.hasClass('hideleaf')? ('<span class="fa" style="color:#0ff;">'+'展示叶节点'+'</span>') :('<span class="fa" style="color:white">'+'隐藏叶节点'+'</span>'),
                 select: ele => {
                   deleteBox();
                   cy.startBatch();
@@ -202,34 +205,25 @@
         cy.cxtmenu(option);
 
         let changeColor = function(e){
-
+          !flag ? e : flag.style({backgroundColor: 'blue',lineColor: 'blue'}) ;
+          e.style({backgroundColor: 'red',lineColor: 'red'}) ;
+          flag = e;
         };
         cy.on('tap', function (e) {
           deleteBox();
           if(e.target !== cy) {
-            // changeColor(e.target);
             !flag ? e.target : flag.style({backgroundColor: 'blue',lineColor: 'blue'}) ;
             e.target.style({backgroundColor: 'red',lineColor: 'red'}) ;
             flag = e.target;
             let str = '<span class="boxInfo" style="cursor:pointer;color:red;float:right;display: block;width: 20px;height: 20px">X</span>';
             if (e.target.group() === 'edges') {
               let name = e.target.data('name').split('-');
-              str =str+
-                '<h1>边信息</h1>' +
-                '<p>source：' + name[0] + '</p>' +
-                '<p>target：' + name[1]+ '</p>' +
-                '<p>edge：' + e.target.data('name')+ '</p>' ;
+              str =str+ '<h1>边信息</h1>' + '<p>source：' + name[0] + '</p>' + '<p>target：' + name[1]+ '</p>' + '<p>edge：' + e.target.data('name')+ '</p>' ;
             }
             else {
-              str =
-                '<h1>节点信息</h1>' +
-                '<p>name：' + e.target.data('name') + '</p>' +
-                '<p>id：' + e.target.data('id') + '</p>';
+              str = '<h1>节点信息</h1>' + '<p>name：' + e.target.data('name') + '</p>' + '<p>id：' + e.target.data('id') + '</p>';
             }
-            str =str+
-              '<p>position-X：' + e.position.x.toFixed(2) + '</p>' +
-              '<p>position-Y：' + e.position.y.toFixed(2) + '</p>' +
-              '<p>' + '<a href="http://fannyol.fun">>></a>' + '</p>';
+            str =str+ '<p>position-X：' + e.position.x.toFixed(2) + '</p>' + '<p>position-Y：' + e.position.y.toFixed(2) + '</p>' + '<p>' + '<a href="http://fannyol.fun">>></a>' + '</p>';
             oBox.innerHTML = str;
             str = undefined;
             oBox.style.left = (e.position.x > cy.width() / 2 ? (e.position.x - 200) : e.position.x) + 'px';

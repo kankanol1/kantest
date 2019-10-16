@@ -13,15 +13,27 @@ Vue.use(VueAxios,axios);
 Vue.use(iView);
 import "./assets/icon_custom/bird/iconfont.css";
 import "./assets/icon_custom/basesite/iconfont.css";
-import cytoscape from 'cytoscape/dist/cytoscape.esm.min';
+// import cytoscape from 'cytoscape/dist/cytoscape.esm.min';
+import cytoscape from 'cytoscape';
 // import cxtmenu from 'cytoscape-cxtmenu';
-import cxtmenu from '@lsvih/cytoscape-cxtmenu'
+import avsdf from 'cytoscape-avsdf';
+import cola from 'cytoscape-cola';
+import bilkent from 'cytoscape-cose-bilkent';
+import cxtmenu from '@lsvih/cytoscape-cxtmenu';
 import 'font-awesome/css/font-awesome.min.css';
 // import jq from 'jquery';
 // Vue.use(jQuery);
 // Vue.use(cytoscape);
 
 import 'leaflet/dist/leaflet.css';
+
+cytoscape.use(cxtmenu);
+cytoscape.use(avsdf);
+cytoscape.use(cola);
+cytoscape.use(bilkent);
+// cytoscape.use(avsdf,cola,bilkent,cxtmenu);
+Vue.prototype.$cytoscape=cytoscape;
+
 Vue.prototype.$leafletOption = {
   center: [37.770518, 119.05331],
   zoom: 10,
@@ -39,8 +51,7 @@ Vue.prototype.$leafletOption = {
 
 Vue.prototype.$tileLayerUrl = 'http://mt3.google.cn/vt/lyrs=y&hl=zh-CN&gl=cn&x={x}&y={y}&z={z}&s=Galil';
 
-cytoscape.use(cxtmenu);
-Vue.prototype.$cytoscape=cytoscape;
+
 Vue.prototype.$jq=require('jquery');
 Vue.use(VueIntro);
 Vue.prototype.$axios = axios;
@@ -65,7 +76,29 @@ router.beforeEach((to, from, next) => {
     }
   }
 });
-
+Date.prototype.format = function (format) {
+  // yyyy-MM-dd HH:mm:ss.SSS
+  let date = {
+    "yyyy": `${this.getFullYear()}`,
+    "yy": (`${this.getFullYear()}`).substr(2),
+    "MM": this.getMonth() + 1 < 10 ? `0${this.getMonth() + 1}` : `${this.getMonth() + 1}`,
+    "dd": this.getDate() < 10 ? `0${this.getDate()}` : `${this.getDate()}`,
+    "HH": this.getHours() < 10 ? `0${this.getHours()}` : `${this.getHours()}`,
+    "hh": this.getHours() < 10 ? `0${this.getHours()}` : `${this.getHours()}`,
+    "mm": this.getMinutes() < 10 ? `0${this.getMinutes()}` : `${this.getMinutes()}`,
+    "m": this.getMinutes() < 10 ? `0` : `${parseInt(this.getMinutes() / 10)}`,
+    "ss": this.getSeconds() < 10 ? `0${this.getSeconds()}` : `${this.getSeconds()}`,
+    "SSS": this.getMilliseconds() < 100 ? (this.getMilliseconds() < 10 ? `00${this.getMilliseconds()}` : `0${this.getMilliseconds()}`) : `${this.getMilliseconds()}`,
+    "SS": (this.getMilliseconds() < 100 ? (this.getMilliseconds() < 10 ? `00${this.getMilliseconds()}` : `0${this.getMilliseconds()}`) : `${this.getMilliseconds()}`).substr(0, 2),
+    "S": (this.getMilliseconds() < 100 ? (this.getMilliseconds() < 10 ? `00${this.getMilliseconds()}` : `0${this.getMilliseconds()}`) : `${this.getMilliseconds()}`).substr(0, 1),
+  };
+  for (let k in date) {
+    if (format.indexOf(k) > -1) {
+      format = format.replace(k, date[k]);
+    }
+  }
+  return format;
+};
 new Vue({
   router,
   render: h => h(App),
