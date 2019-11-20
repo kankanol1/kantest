@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello Qunee for HTML5</title>
+</head>
+<body>
+<div style="border:1px solid red;height: 500px;" id="canvas"></div>
+<div style="border:1px solid red;height: 500px;" id="canvas1"></div>
+<script src="./js/qunee.min.js"></script>
+<script src="./js/svg.js"></script>
+<script>
+  var graph = new Q.Graph('canvas');
+  graph.moveToCenter();
+
+  var x = 0, y = 0;
+  for(var name in SVGIcons){
+    var node = graph.createNode(name.substring(0, name.indexOf('.svg')), x, y);
+    node.image = name;
+    x += 100;
+    if(x > 600){
+      x = 0;
+      y += 100;
+    }
+  }
+</script>
+</body>
+</html>
+
+<!---
+    Created by kankan on 2019-11-20.
+    E-mail: lidainzhong@gl-data.com
+    To: More pain, more gain.
+-->
