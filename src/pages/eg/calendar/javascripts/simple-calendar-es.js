@@ -635,7 +635,7 @@ class SimpleCalendar {
       else {
         currentmonth = 1;
         selectYear.value = ++currentyear;
-      };
+      }
       selectMonth.value = currentmonth;
       calendar.update(currentmonth, currentyear);
     };

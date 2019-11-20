@@ -93,6 +93,11 @@ let router = [
     name: 'login',
     component: (resolve) => require(['../pages/login'], resolve),
   },
+  {
+    path: '/input',
+    name: 'input',
+    component: (resolve) => require(['../pages/test/input'], resolve),
+  },
 ];
 
 export default new Router({

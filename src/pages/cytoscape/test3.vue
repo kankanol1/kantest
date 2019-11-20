@@ -19,7 +19,11 @@
 
         const $ = require('jquery');
         let flag;
+        $('.boxInfo').click(function(){
+          deleteBox();
+        });
         let deleteBox = function(){
+
           !flag ? undefined : flag.style({backgroundColor: 'blue',lineColor: 'blue',targetArrowColor:'blue'});
           $('.boxCon') && $('.boxCon').remove();
         };
@@ -45,6 +49,7 @@
                 targetArrowShape: 'triangle',
                 targetArrowColor: '#00f',
                 lineColor: '#00f',
+                color:'#fff',
               }
             }
           ],
@@ -943,13 +948,11 @@
             ],
           },
           zoom:1,
+
         });
         let selectElements = {};
         let oBox = document.createElement('div');
         oBox.classList = 'boxCon';
-        oBox.addEventListener('click', function () {
-          this.parentElement.removeChild(this);
-        });
         let option = {
           selector: 'node',
           menuRadius: 120,
@@ -1035,8 +1038,8 @@
               flag.style({backgroundColor: 'blue',lineColor: 'blue',targetArrowColor:'blue'}) ;
             e.target.style({backgroundColor: 'red',lineColor: 'red',targetArrowColor:'red'}) ;
             flag = e.target;
-            let str = '<a href="http://fannyol.fun"><span class="boxInfo">X</span></a>';
-            if (e.target.group() === 'edges') {//http://fannyol.fun
+            let str = '<span class="boxInfo">X</span>';
+            if (e.target.group() === 'edges') {
               let info ='<ul class="phone"><li><span>通话日期</span><span>通话时长</span></li>';
               for(let i =0;i<e.target.data('info').length;i++){
                 info = info +'<li><span>'+new Date(e.target.data('info')[i].date).format('yyyy年mm月dd日')+'</span><span>'+e.target.data('info')[i].time.toFixed(2)+'</span></li>';
@@ -1108,8 +1111,6 @@
         }
       }
     }
-
-
   }
 
   .cxtmenu-item {

@@ -22,8 +22,8 @@
                 v-model="formInline.user"
                 placeholder="账号"
                 @keyup.native.13="focus('password')"
-        >
-          <Icon type="ios-person-outline" slot="prepend"></Icon>
+        />
+        <Icon type="ios-person-outline" slot="prepend"></Icon>
         </Input>
       </FormItem>
       <br>
@@ -35,9 +35,9 @@
                 id="password"
                 placeholder="密码"
                 @keyup.native.13="handleSubmit('formInline')"
-        >
-          <Icon type="ios-lock-outline" slot="prepend"></Icon>
-        </Input>
+        />
+        <Icon type="ios-lock-outline" slot="prepend"></Icon>
+
       </FormItem>
       <br>
       <FormItem>
@@ -96,7 +96,20 @@
         this.$refs[name].validate((valid) => {
           if (valid) {
             this.$set(this, 'loading', true);
-            this.$axios.get('api/login/login.json', {}).then(response => {
+            let params = new URLSearchParams();
+            params.append('name', 'kankan');
+            params.append('password', '123456');
+
+            this.$AjaxP("api/login/login.json").then(function (response) {
+              // eslint-disable-next-line no-console
+              console.log(response);
+            }, function (error) {
+              // eslint-disable-next-line no-console
+              console.error('出错了', error);
+            });
+
+
+            this.$axios.get('api/login/login.json', params).then(response => {
               if (response && response.status === 200) {
                 const CryptoJS = require("crypto-js");
                 const keyStr = 'lidianzhongzhong';
@@ -138,6 +151,7 @@
       focus(id) {
         document.getElementById(id).lastElementChild.focus();
       },
+
     }
   }
 
