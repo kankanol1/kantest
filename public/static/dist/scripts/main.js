@@ -44,5 +44,3 @@ Q.loadClassPath && Q.loadClassPath(graphs, "graphs"), $(function () {
   var r = new Q.Gradient(Q.Consts.GRADIENT_TYPE_RADIAL, [Q.toColor(2868903935), Q.toColor(871296750), Q.toColor(1149798536), Q.toColor(862348902)], [.1, .3, .7, .9], 0, -.2, -.2);
   $(".graph-editor").graphEditor({})
 });
-
-$($(".Q-Canvas")[1]).hide();
