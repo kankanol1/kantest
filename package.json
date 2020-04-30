@@ -30,7 +30,7 @@
     "font-awesome": "^4.7.0",
     "intro.js": "^2.9.3",
     "iview": "^3.5.0-rc.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "leaflet": "^1.5.1",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
